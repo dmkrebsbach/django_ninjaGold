@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Ninja Gold - Django Version</title>
+        <meta charset="utf-8">
+        {% load static %}
+        <link rel="stylesheet", href="{% static 'makeMoney/css/style.css' %}">
+    </head>
+    <body>
+
+        <div class="container">
+            <h1>Ninja Gold Game!</h1>
+            <h3>Current Gold Level: {{request.session.totalGold}} coins</h3>
+            
+            
+            <div class="buildings">
+
+                <div class="bldg">
+                    <form action="/process_money" method="POST">
+                        {% csrf_token %}
+                        <h4>Farm</h4>
+                        <h4>(earns 10-20 gold coins)</h4>
+                        <input type="hidden" name="location" value="Farm">
+                        <input class="goldbutton" type="submit" value="Find Gold!">
+                    </form>
+                </div>
+
+                <div class="bldg">
+                    <form action="/process_money" method="POST">
+                        {% csrf_token %}
+                        <h4>Cave</h4>
+                        <h4>(earns 5-10 gold coins)</h4>
+                        <input type="hidden" name="location" value="Cave">
+                        <input class="goldbutton" type="submit" value="Find Gold!">
+                    </form>
+                </div>
+
+                <div class="bldg">
+                    <form action="/process_money" method="POST">
+                        {% csrf_token %}
+                        <h4>House</h4>
+                        <h4>(earns 2-5 gold coins)</h4>
+                        <input type="hidden" name="location" value="House">
+                        <input class="goldbutton" type="submit" value="Find Gold!">
+                    </form>
+                </div>
+
+                <div class="bldg">
+                    <form action="/process_money" method="POST">
+                        {% csrf_token %}
+                        <h4>Casino</h4>
+                        <h4>(earns/takes 0-50 gold coins)</h4>
+                        <input type="hidden" name="location" value="Casino">
+                        <input class="goldbutton" type="submit" value="Find Gold!">
+                    </form>
+                </div>
+
+            </div>
+
+            <h5>Activity Log</h5>
+            <div class ="activitylog">
+                {% for activity in request.session.activity %}
+                    <p>{{activity}}</p>
+                {% endfor %}
+            </div>
+
+            <div class = "resetButton">
+                <form action="/reset" method="POST">
+                    {% csrf_token %}
+                    <input class="reset" type="submit" value="Reset">
+                </form>
+            </div>
+
+        </div>
+
+    </body>
+</html>
